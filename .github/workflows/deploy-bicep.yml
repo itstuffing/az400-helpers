@@ -1,0 +1,63 @@
+name: 💪 deploy-bicep
+run-name: "(${{ inputs.env }}) bicep deploy by ${{ github.actor }} @${{ github.ref_name }}"
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        type: choice
+        description: environment
+        options:
+          - sbx
+          - dev
+          - tst
+          - acc
+          - prd
+      resourceGroupLocation:
+        type: string
+        description: Resource Group Location
+        default: "westeurope"
+env:
+  resourceGroupName: "az400-${{ inputs.env }}-bicep"
+
+permissions:
+    id-token: write
+    contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: auto
+    steps:
+        # Checkout code
+        - uses: actions/checkout@v2
+
+        - name: load env
+          run: |
+            echo 'using ${{ inputs.env }} environment'
+            cat './.github/env/${{ inputs.env }}.env' >> $GITHUB_ENV
+        
+        # Login to Azure using federated credentials
+        - name: az-login
+          uses: azure/login@v1
+          with:
+            client-id: ${{ env.ARM_CLIENT_ID }}
+            tenant-id: ${{ env.ARM_TENANT_ID }}
+            subscription-id: ${{ env.ARM_SUBSCRIPTION_ID }}
+        
+        # Create resource group
+        - uses: Azure/CLI@v1
+          with:
+              inlineScript: |
+                #!/bin/bash
+                az group create --name ${{ env.resourceGroupName }} --location ${{ inputs.resourceGroupLocation }}
+                echo "Azure resource group created"
+
+        # Deploy Bicep file
+        - name: deploy
+          uses: azure/arm-deploy@v1
+          with:
+                subscriptionId: ${{ env.ARM_SUBSCRIPTION_ID }}
+                resourceGroupName: ${{ env.resourceGroupName }}
+                template: solutions/simple/main.bicep
+                parameters: parameters/simple/${{ inputs.env }}.json
+                failOnStdErr: false
