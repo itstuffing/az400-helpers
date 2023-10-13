@@ -1,4 +1,12 @@
 {
-    "location": "westeurope",
-    "storageName": "stgaz400devbicep01"
-}
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "location": {
+        "value": "westeurope"
+      },
+      "storageName": {
+        "value": "stgaz400devbicep01"
+      }
+    }
+  }
