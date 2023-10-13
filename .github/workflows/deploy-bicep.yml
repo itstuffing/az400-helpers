@@ -29,7 +29,7 @@ jobs:
     environment: auto
     steps:
         # Checkout code
-        - uses: actions/checkout@v2
+        - uses: actions/checkout@v4
 
         - name: load env
           run: |
