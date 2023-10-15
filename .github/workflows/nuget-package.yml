@@ -12,6 +12,4 @@ jobs:
         run: |
             nuget pack './nuget-package/pack.nuspec'
       - run: |
-            nuget push './nuget-package/*.nupkg' -Source "github"
-        env:
-            NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            nuget push './nuget-package/*.nupkg' -Source "github" --api-key ${{ secrets.REPOS_READ_TOKEN }}
