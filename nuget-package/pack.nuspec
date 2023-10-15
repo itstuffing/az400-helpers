@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>myPackage</id>
+    <version>1.0.0</version>
+	<title>myPackage</title>
+    <authors>DevOps</authors>
+    <owners>DevOps</owners>
+	<projectUrl>https://github.com/itstuffing/az400-helpers</projectUrl>
+    <description>Package for testing</description>
+    <releaseNotes>Added new features</releaseNotes>
+    <copyright>DevOps All rights reserved</copyright>
+    <tags>DevOps</tags>
+  </metadata>
+  <files>
+    <!-- Add files from specific folder -->
+    <file src="..\solutions\**" target="solutions" />
+  </files>
+</package>
