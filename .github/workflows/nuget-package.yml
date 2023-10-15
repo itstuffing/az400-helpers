@@ -12,5 +12,5 @@ jobs:
         run: |
             nuget pack './nuget-package/pack.nuspec'
       - run: |
-            dotnet nuget add source --username pasasorin --password ${{ secrets.PACKAGE_PUSH }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/itstuffing/index.json"
-            dotnet nuget push './*.nupkg' --source ""https://nuget.pkg.github.com/itstuffing/index.json"" --api-key ${{ secrets.PACKAGE_PUSH }}
+            dotnet nuget add source --username pasasorin --password ${{ secrets.PACKAGE_PUSH }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/pasasorin/index.json"
+            dotnet nuget push './*.nupkg' --source ""https://nuget.pkg.github.com/pasasorin/index.json"" --api-key ${{ secrets.PACKAGE_PUSH }}
