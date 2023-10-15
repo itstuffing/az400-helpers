@@ -12,4 +12,4 @@ jobs:
         run: |
             nuget pack './nuget-package/pack.nuspec'
       - run: |
-            dotnet nuget push './nuget-package/*.nupkg' --source "github" --api-key ${{ secrets.REPOS_READ_TOKEN }}
+            dotnet nuget push './nuget-package/*.nupkg' --source ""https://nuget.pkg.github.com/itstuffing/index.json"" --api-key ${{ secrets.REPOS_READ_TOKEN }}
